@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.2](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.1...v1.0.2) (2023-08-07)
+
+
+### Bug Fixes
+
+* iam policy ([2348e9d](https://github.com/ganexcloud/terraform-aws-prowler/commit/2348e9d61f962aa55fa6948a379611733f9c32be))
+
 ### [1.0.1](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.0...v1.0.1) (2023-08-07)
 
 
