@@ -126,8 +126,7 @@ variable "cloudwatch_event_role_policy" {
       "Action": [
         "events:InvokeApiDestination"
       ],
-      "Resource": [
-        "arn:aws:events:us-east-1::api-destination/*"
+      "Resource": "*"
       ]
     }
   ]
