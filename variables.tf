@@ -127,7 +127,6 @@ variable "cloudwatch_event_role_policy" {
         "events:InvokeApiDestination"
       ],
       "Resource": "*"
-      ]
     }
   ]
 }
