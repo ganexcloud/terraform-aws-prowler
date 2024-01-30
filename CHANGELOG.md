@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.7](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.6...v1.0.7) (2024-01-30)
+
+
+### Bug Fixes
+
+* Test ([0ea9225](https://github.com/ganexcloud/terraform-aws-prowler/commit/0ea9225ba5538e763dfa69e8b4416d01f614f8d4))
+
 ### [1.0.6](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.5...v1.0.6) (2024-01-30)
 
 
