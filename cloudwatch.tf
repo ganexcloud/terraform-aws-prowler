@@ -12,14 +12,14 @@ resource "aws_cloudwatch_event_target" "this" {
 }
 
 resource "aws_cloudwatch_event_rule" "notification" {
-  count         = var.create_cloudwatch_event_rule ? 1 : 0
+  count         = var.create_cloudwatch_event_rule && var.create_cloudwatch_event_target ? 1 : 0
   name          = "security-hub-prowler-notifications"
   description   = "Send Security Hub Notifications."
   event_pattern = var.cloudwatch_event_pattern
 }
 
 resource "aws_cloudwatch_event_target" "notification" {
-  count    = var.create_cloudwatch_event_target ? 1 : 0
+  count    = var.create_cloudwatch_event_rule && var.create_cloudwatch_event_target ? 1 : 0
   arn      = var.cloudwatch_event_target_arn
   rule     = aws_cloudwatch_event_rule.notification[0].name
   role_arn = aws_iam_role.notification[0].arn

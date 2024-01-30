@@ -2,37 +2,13 @@ resource "aws_iam_role" "this" {
   name                  = "Prowler"
   managed_policy_arns   = [aws_iam_policy.codebuild.arn, "arn:aws:iam::aws:policy/SecurityAudit", "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"]
   force_detach_policies = true
-  assume_role_policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Action    = "sts:AssumeRole"
-          Effect    = "Allow"
-          Sid       = "CodeBuildProwler"
-          Principal = { Service = "codebuild.amazonaws.com" }
-        }
-      ]
-    }
-  )
+  assume_role_policy    = data.aws_iam_policy_document.codebuild_assume_role_policy.json
 }
 
 resource "aws_iam_role" "trigger" {
   name                = "Prowler-trigger"
   managed_policy_arns = [aws_iam_policy.this.arn]
-  assume_role_policy = jsonencode(
-    {
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Action    = "sts:AssumeRole"
-          Effect    = "Allow"
-          Sid       = "TriggerCodeBuild"
-          Principal = { Service = "events.amazonaws.com" }
-        }
-      ]
-    }
-  )
+  assume_role_policy  = data.aws_iam_policy_document.codebuild_trigger_assume_role_policy.json
 }
 
 resource "aws_iam_policy" "this" {
@@ -57,7 +33,6 @@ resource "aws_iam_policy" "codebuild" {
   name        = "Prowler-Codebuild"
   path        = "/"
   description = "IAM Policy used to run prowler from codebuild"
-
   policy = jsonencode(
     {
       Version = "2012-10-17"
@@ -112,7 +87,55 @@ resource "aws_iam_policy" "codebuild" {
           ]
           Effect   = "Allow"
           Resource = "*"
-
+        },
+        {
+          "Action" : [
+            "account:Get*",
+            "appstream:Describe*",
+            "appstream:List*",
+            "backup:List*",
+            "cloudtrail:GetInsightSelectors",
+            "codeartifact:List*",
+            "codebuild:BatchGet*",
+            "dlm:Get*",
+            "drs:Describe*",
+            "ds:Get*",
+            "ds:Describe*",
+            "ds:List*",
+            "ec2:GetEbsEncryptionByDefault",
+            "ecr:Describe*",
+            "ecr:GetRegistryScanningConfiguration",
+            "elasticfilesystem:DescribeBackupPolicy",
+            "glue:GetConnections",
+            "glue:GetSecurityConfiguration*",
+            "glue:SearchTables",
+            "lambda:GetFunction*",
+            "logs:FilterLogEvents",
+            "macie2:GetMacieSession",
+            "s3:GetAccountPublicAccessBlock",
+            "shield:DescribeProtection",
+            "shield:GetSubscriptionState",
+            "securityhub:BatchImportFindings",
+            "securityhub:GetFindings",
+            "ssm:GetDocument",
+            "ssm-incidents:List*",
+            "support:Describe*",
+            "tag:GetTagKeys",
+            "wellarchitected:List*"
+          ],
+          "Resource" : "*",
+          "Effect" : "Allow",
+          "Sid" : "AllowMoreReadForProwler"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "apigateway:GET"
+          ],
+          "Resource" : [
+            "arn:aws:apigateway:*::/restapis/*",
+            "arn:aws:apigateway:*::/apis/*"
+          ]
         },
         {
           Action = [
@@ -142,14 +165,14 @@ resource "aws_iam_policy" "codebuild" {
           "Effect" : "Allow"
         },
         {
-          "Action" : ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion", "s3:GetBucketAcl", "s3:GetBucketLocation"],
-          "Resource" : "arn:aws:s3:::prowler-reports-${random_string.this.result}/*",
+          "Action" : ["s3:GetObject"],
+          "Resource" : "${aws_s3_bucket.this.arn}/files/*",
           "Effect" : "Allow"
         },
         {
-          Action   = ["ssm:GetParameter"],
-          Effect   = "Allow"
-          Resource = "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/prowler/*"
+          "Action" : ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion", "s3:GetBucketAcl", "s3:GetBucketLocation"],
+          "Resource" : "${aws_s3_bucket.this.arn}/reports/*",
+          "Effect" : "Allow"
         }
       ]
     }

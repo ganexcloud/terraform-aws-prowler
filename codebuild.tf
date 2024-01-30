@@ -15,7 +15,7 @@ resource "aws_codebuild_project" "this" {
     type         = "LINUX_CONTAINER"
 
     environment_variable {
-      name  = "BUCKET_REPORT"
+      name  = "S3_BUCKET"
       value = aws_s3_bucket.this.id
     }
 

@@ -1,0 +1,4 @@
+Allowlist:
+  Accounts:
+    "*":
+      Checks:
