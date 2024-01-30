@@ -1,13 +1,5 @@
-resource "random_string" "this" {
-  length  = 8
-  upper   = false
-  lower   = true
-  numeric = true
-  special = false
-}
-
 resource "aws_s3_bucket" "this" {
-  bucket = "prowler-reports-${random_string.this.result}"
+  bucket = "${local.s3_bucket_name_prefix}-prowler"
   #acl    = "log-delivery-write"
   server_side_encryption_configuration {
     rule {
@@ -17,9 +9,9 @@ resource "aws_s3_bucket" "this" {
     }
   }
   lifecycle_rule {
-    id                                     = "Permanently delete objects after ${var.s3_delete_objects_after} days"
+    id                                     = "Permanently delete reports after ${var.s3_delete_objects_after} days"
     enabled                                = true
-    prefix                                 = "*"
+    prefix                                 = "reports/"
     abort_incomplete_multipart_upload_days = var.s3_delete_objects_after
     expiration {
       expired_object_delete_marker = false
@@ -43,4 +35,18 @@ resource "aws_s3_bucket_ownership_controls" "this" {
   rule {
     object_ownership = "ObjectWriter"
   }
+}
+
+resource "aws_s3_object" "allowlist" {
+  bucket = aws_s3_bucket.this.id
+  key    = "files/allowlist.yaml"
+  source = local.prowler_allowlist_filepath
+  etag   = filemd5(local.prowler_allowlist_filepath)
+}
+
+resource "aws_s3_object" "config" {
+  bucket = aws_s3_bucket.this.id
+  key    = "files/config.yaml"
+  source = local.prowler_config_filepath
+  etag   = filemd5(local.prowler_config_filepath)
 }

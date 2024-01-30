@@ -1,7 +1,7 @@
 variable "prowler_version" {
   description = "(Required) Prowler version"
   type        = string
-  default     = "3.8.0"
+  default     = "3.12.0"
 }
 
 variable "prowler_schedule" {
@@ -13,11 +13,17 @@ variable "prowler_schedule" {
 variable "prowler_cli_options" {
   description = "(Required) Run Prowler With The Following Command"
   type        = string
-  default     = "-S -f us-east-1 --compliance aws_foundational_security_best_practices_aws cis_1.5_aws --output-modes html json --quiet --no-banner --ignore-exit-code-3"
+  default     = "-S -f us-east-1 --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_2.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --quiet --no-banner --ignore-exit-code-3"
 }
 
-variable "prowler_allowlist" {
-  description = "(Required) Prowler allowlist `https://docs.prowler.cloud/en/latest/tutorials/allowlist/`"
+variable "prowler_allowlist_file" {
+  description = "(Required) Prowler allowlist file `https://docs.prowler.cloud/en/latest/tutorials/allowlist/`"
+  default     = null
+  type        = string
+}
+
+variable "prowler_config_file" {
+  description = "(Required) Prowler configuration file `https://docs.prowler.cloud/en/latest/tutorials/configuration_file/`"
   default     = null
   type        = string
 }
@@ -42,7 +48,7 @@ variable "codebuild_compute_type" {
 
 variable "codebuild_image" {
   description = "(Required) Docker image to use for this build project."
-  default     = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
+  default     = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
   type        = string
 }
 
@@ -53,7 +59,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.9
+      python: 3.11
     commands:
       - echo "Installing Prowler and dependencies..."
       - pip3 install detect-secrets==1.4.0 prowler==$PROWLER_VERSION --quiet
@@ -61,12 +67,13 @@ phases:
   build:
     commands:
       - echo "Running Prowler as prowler $PROWLER_OPTIONS"
-      - aws --region us-east-1 ssm get-parameter --name /prowler/allowlist --with-decryption --output text --query Parameter.Value > allowlist.yaml
-      - prowler -w allowlist.yaml $PROWLER_OPTIONS
+      - aws s3 cp s3://$S3_BUCKET/files/allowlist.yaml .
+      - aws s3 cp s3://$S3_BUCKET/files/config.yaml .
+      - prowler --allowlist-file allowlist.yaml --config-file config.yaml $PROWLER_OPTIONS
   post_build:
     commands:
       - echo "Scan Complete"
-      - aws s3 cp --no-progress --sse AES256 output/ s3://$BUCKET_REPORT/`date +%d-%m-%Y`-`date +%H-%M-%S` --recursive
+      - aws s3 cp --no-progress --sse AES256 output/ s3://$S3_BUCKET/reports/`date +%d-%m-%Y`-`date +%H-%M-%S` --recursive
       - echo "Done!"
 EOF
   type        = string
@@ -78,9 +85,15 @@ variable "tags" {
   type        = map(string)
 }
 
+variable "s3_bucket_name_prefix" {
+  description = "(Optional) Bucket name prefix. Current account alias if used if none provied."
+  default     = null
+  type        = string
+}
+
 variable "s3_delete_objects_after" {
-  description = "(Required) Retention period in days to store Prowler reports"
-  default     = 30
+  description = "(Required) Retention period in days to store Prowler Reports."
+  default     = 90
   type        = number
 }
 
@@ -106,7 +119,7 @@ variable "cloudwatch_event_pattern" {
     "findings": {
       "ProductName": ["Prowler"],
       "Compliance": { "Status": ["FAILED"] },
-      "Severity": { "Label": ["HIGH", "CRITICAL"] },
+      "Severity": { "Label": ["HIGH", "CRITICAL", "MEDIUM", "LOW"] },
       "RecordState": ["ACTIVE"]
     }
   }
