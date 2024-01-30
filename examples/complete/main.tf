@@ -39,39 +39,4 @@ module "prowler" {
   create_cloudwatch_event_rule     = true
   create_cloudwatch_event_target   = true
   cloudwatch_event_target_arn      = lookup(module.eventbridge.eventbridge_api_destination_arns, "squadcast")
-  prowler_allowlist                = <<EOF
-Allowlist:
-  Accounts:
-    "*":
-      Checks:
-        "iam_user_mfa_enabled_console_access":
-          Regions:
-            - "*"
-          Resources:
-            - "user1"
-        "s3_bucket_public_access":
-          Regions:
-            - "*"
-          Resources:
-            - "bucket2"
-          Regions:
-            - "*"
-          Resources:
-            - "*"
-        "iam_aws_attached_policy_no_administrative_privileges":
-          Regions:
-            - "*"
-          Resources:
-            - "AdministratorAccess"
-        "s3_account_level_public_access_blocks":
-          Regions:
-            - "*"
-          Resources:
-            - "123456789456"
-        "iam_root_hardware_mfa_enabled":
-          Regions:
-            - "*"
-          Resources:
-            - "*"
-EOF
 }
