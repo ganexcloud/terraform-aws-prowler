@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.5](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.4...v1.0.5) (2024-01-30)
+
+
+### Bug Fixes
+
+* adjusting locals variable path ([e6fbaaf](https://github.com/ganexcloud/terraform-aws-prowler/commit/e6fbaaf38db57dd6a3c29a14da7cca91a88c18cf))
+
 ### [1.0.4](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.3...v1.0.4) (2024-01-30)
 
 
