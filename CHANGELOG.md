@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.6](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.5...v1.0.6) (2024-01-30)
+
+
+### Bug Fixes
+
+* adjusting allowlist-defauly.yaml ([7ac997a](https://github.com/ganexcloud/terraform-aws-prowler/commit/7ac997a928975c53e14144195073a381a00b2e24))
+
 ### [1.0.5](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.4...v1.0.5) (2024-01-30)
 
 
