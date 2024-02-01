@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "this" {
   bucket = "${local.s3_bucket_name_prefix}-prowler"
-  #acl    = "log-delivery-write"
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {

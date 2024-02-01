@@ -35,20 +35,7 @@ resource "aws_cloudwatch_event_target" "notification" {
 resource "aws_iam_role" "notification" {
   count              = var.create_cloudwatch_event_rule ? 1 : 0
   name               = "prowler-notifications"
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "events.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  assume_role_policy = data.aws_iam_policy_document.notifications_assume_role_policy.json
   inline_policy {
     name   = "prowler-notifications-policy"
     policy = var.cloudwatch_event_role_policy
