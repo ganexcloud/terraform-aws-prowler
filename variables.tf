@@ -6,14 +6,14 @@ variable "prowler_version" {
 
 variable "prowler_schedule" {
   description = "(Required) Prowler based on cron schedule"
-  default     = "cron(0 0 ? * * *)"
+  default     = "cron(0 12 ? * * *)"
   type        = string
 }
 
 variable "prowler_cli_options" {
   description = "(Required) Run Prowler With The Following Command"
   type        = string
-  default     = "-S -f us-east-1 --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_2.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --quiet --no-banner --ignore-exit-code-3"
+  default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_2.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"
 }
 
 variable "prowler_allowlist_file" {
@@ -31,7 +31,7 @@ variable "prowler_config_file" {
 variable "enable_security_hub_subscription" {
   description = "(Required) Enable a Prowler Subscription."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "codebuild_timeout" {
@@ -165,6 +165,7 @@ variable "cloudwatch_event_target_transformer" {
       "observed-at"       = "$.detail.findings[0].CreatedAt"
       "product-name"      = "$.detail.findings[0].ProductName"
       "region"            = "$.region"
+      "resource-region"   = "$.detail.findings[0].Resources[0].Region"
       "resources"         = "$.detail.findings[0].Resources[0].Id"
       "severity"          = "$.detail.findings[0].FindingProviderFields.Severity.Label"
       "source"            = "$.source"
@@ -176,14 +177,14 @@ variable "cloudwatch_event_target_transformer" {
   "detail": {
     "compliance-status": "<compliance-status>",
     "created": "<created-at>",
-    "link": "https://us-east-1.console.aws.amazon.com/securityhub/home?region=<region>#/findings?search=Id%3D%255Coperator%255C%253AEQUALS%255C%253A<id>",
+    "link": "https://<region>.console.aws.amazon.com/securityhub/home?region=<region>#/findings?search=Id%3D%255Coperator%255C%253AEQUALS%255C%253A<id>",
     "observed": "<observed-at>",
     "product-name": "<product-name>",
     "severity": "<severity>"
   },
   "detail-type": "<description>",
   "id": "<id>",
-  "region": "<region>",
+  "region": "<resource-region>",
   "resources": ["<resources>"],
   "source": "SecurityHub",
   "time": "<time>"
