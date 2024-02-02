@@ -1,7 +1,7 @@
 variable "prowler_version" {
   description = "(Required) Prowler version"
   type        = string
-  default     = "3.12.0"
+  default     = "3.12.1"
 }
 
 variable "prowler_schedule" {
