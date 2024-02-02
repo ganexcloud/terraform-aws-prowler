@@ -65,7 +65,7 @@ No modules.
 | <a name="input_prowler_cli_options"></a> [prowler\_cli\_options](#input\_prowler\_cli\_options) | (Required) Run Prowler With The Following Command | `string` | `"-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_2.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"` | no |
 | <a name="input_prowler_config_file"></a> [prowler\_config\_file](#input\_prowler\_config\_file) | (Required) Prowler configuration file `https://docs.prowler.cloud/en/latest/tutorials/configuration_file/` | `string` | `null` | no |
 | <a name="input_prowler_schedule"></a> [prowler\_schedule](#input\_prowler\_schedule) | (Required) Prowler based on cron schedule | `string` | `"cron(0 12 ? * * *)"` | no |
-| <a name="input_prowler_version"></a> [prowler\_version](#input\_prowler\_version) | (Required) Prowler version | `string` | `"3.12.0"` | no |
+| <a name="input_prowler_version"></a> [prowler\_version](#input\_prowler\_version) | (Required) Prowler version | `string` | `"3.12.1"` | no |
 | <a name="input_s3_bucket_name_prefix"></a> [s3\_bucket\_name\_prefix](#input\_s3\_bucket\_name\_prefix) | (Optional) Bucket name prefix. Current account alias if used if none provied. | `string` | `null` | no |
 | <a name="input_s3_delete_objects_after"></a> [s3\_delete\_objects\_after](#input\_s3\_delete\_objects\_after) | (Required) Retention period in days to store Prowler Reports. | `number` | `90` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A mapping of tags to assign to all resources | `map(string)` | `{}` | no |
