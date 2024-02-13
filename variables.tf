@@ -1,7 +1,7 @@
 variable "prowler_version" {
   description = "(Required) Prowler version"
   type        = string
-  default     = "3.12.1"
+  default     = "3.13.0"
 }
 
 variable "prowler_schedule" {
@@ -13,7 +13,7 @@ variable "prowler_schedule" {
 variable "prowler_cli_options" {
   description = "(Required) Run Prowler With The Following Command"
   type        = string
-  default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_2.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"
+  default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_3.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"
 }
 
 variable "prowler_allowlist_file" {
@@ -59,7 +59,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.12
     commands:
       - echo "Installing Prowler and dependencies..."
       - pip3 install detect-secrets==1.4.0 prowler==$PROWLER_VERSION --quiet
