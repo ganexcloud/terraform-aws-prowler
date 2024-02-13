@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.10](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.9...v1.0.10) (2024-02-13)
+
+
+### Bug Fixes
+
+* adjusting enable-security-hub script ([5a777b4](https://github.com/ganexcloud/terraform-aws-prowler/commit/5a777b4453bc1c60237de91d6aade98ea948ecd8))
+* adjusting enable-security-hub script ([06bda01](https://github.com/ganexcloud/terraform-aws-prowler/commit/06bda0179aa98962cd083737725c2546a6600130))
+* upgrading to 3.13.0 ([cf869fc](https://github.com/ganexcloud/terraform-aws-prowler/commit/cf869fc2adff5e87b4dbadcee98c52a5e39d7380))
+
 ### [1.0.9](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.8...v1.0.9) (2024-02-02)
 
 
