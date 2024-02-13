@@ -1,6 +1,20 @@
 #!/bin/bash
 region=$1
 subscription_name=$2
+role_arn=$3
+
+# Assume role
+if [ ! -z "$role_arn" ]; then
+  OUTPUT=`aws sts assume-role --role-arn "${role_arn}"`
+  if [ $? -gt 0 ]; then
+    echo
+    echo "Error assuming role \"${role_arn}\""
+  else
+    export AWS_ACCESS_KEY_ID=`echo $OUTPUT | jq -r .Credentials.AccessKeyId`
+    export AWS_SECRET_ACCESS_KEY=`echo $OUTPUT | jq -r .Credentials.SecretAccessKey`
+    export AWS_SESSION_TOKEN=`echo $OUTPUT | jq -r .Credentials.SessionToken`
+  fi
+fi
 
 # Check if Security Hub is enabled in the specified region
 hub_result=$(aws securityhub describe-hub --region $region 2>&1)
