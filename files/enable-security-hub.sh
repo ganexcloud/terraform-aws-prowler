@@ -5,7 +5,7 @@ role_arn=$3
 
 # Assume role
 if [ ! -z "$role_arn" ]; then
-  OUTPUT=`aws sts assume-role --role-arn "${role_arn}"`
+  OUTPUT=`aws sts assume-role --role-arn "${role_arn}" --role-session-name terraform-prowler`
   if [ $? -gt 0 ]; then
     echo
     echo "Error assuming role \"${role_arn}\""
