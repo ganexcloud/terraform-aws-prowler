@@ -26,10 +26,10 @@ else
 fi
 
 # Check if the specified subscription is active in the region
-subscription_result=$(aws --region $region securityhub describe-products --product-arn "arn:aws:securityhub:$region::product/$subscription_name" 2>&1)
-if [[ $subscription_result == *"SubscriptionNotFound"* ]]; then
+products=$(aws securityhub --region $region list-enabled-products-for-import --output json)
+if echo "$products" | jq -r '.ProductSubscriptions[]' | grep -q "$subscription_name"; then
+  echo "The Security Hub subscription is active in the region $region."
+else
   echo "The Security Hub subscription is not active in the region $region. Adding..."
   aws --region $region securityhub enable-import-findings-for-product --product-arn "arn:aws:securityhub:$region::product/$subscription_name"
-else
-  echo "The Security Hub subscription is active in the region $region."
 fi
