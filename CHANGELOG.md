@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.12](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.11...v1.0.12) (2024-04-01)
+
+
+### Bug Fixes
+
+* adjusting codebuild_notification_sns_topic_arn ([f31712b](https://github.com/ganexcloud/terraform-aws-prowler/commit/f31712be1da328cf8448f85e4617988a775de70c))
+* creating codebuild_failure_alarm ([81bb51e](https://github.com/ganexcloud/terraform-aws-prowler/commit/81bb51eb64457bba877a9c2d6cf1e862a6997895))
+
 ### [1.0.11](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.10...v1.0.11) (2024-03-27)
 
 
