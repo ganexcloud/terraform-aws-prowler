@@ -79,6 +79,17 @@ EOF
   type        = string
 }
 
+variable "create_codebuild_cloudwatch_alarm" {
+  description = "(Required) Create CloudWatch Alarm to notify sns topic when build fail."
+  type        = bool
+  default     = true
+}
+
+variable "codebuild_notification_sns_topic_arn" {
+  description = "(Optional) CloudWatch Event target ARN to Codebuild notifications."
+  type        = list(string)
+}
+
 variable "tags" {
   description = "(Optional) A mapping of tags to assign to all resources"
   default     = {}
