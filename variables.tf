@@ -88,6 +88,7 @@ variable "create_codebuild_cloudwatch_alarm" {
 variable "codebuild_notification_sns_topic_arn" {
   description = "(Optional) CloudWatch Event target ARN to Codebuild notifications."
   type        = list(string)
+  default     = []
 }
 
 variable "tags" {
