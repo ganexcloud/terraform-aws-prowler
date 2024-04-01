@@ -41,3 +41,23 @@ resource "aws_iam_role" "notification" {
     policy = var.cloudwatch_event_role_policy
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "codebuild_failure_alarm" {
+  count               = var.create_codebuild_cloudwatch_alarm ? 1 : 0
+  alarm_name          = "[${data.aws_iam_account_alias.current.account_alias}] codebuild-prowler-build-failed"
+  alarm_description   = "[${data.aws_iam_account_alias.current.account_alias}] Codebuild Prowler project build failed (P3)"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  metric_name         = "FailedBuilds"
+  namespace           = "AWS/CodeBuild"
+  period              = 300
+  statistic           = "Sum"
+  threshold           = 1
+  treat_missing_data  = "ignore"
+
+  dimensions = {
+    ProjectName = aws_codebuild_project.this.name
+  }
+
+  alarm_actions = var.codebuild_notification_sns_topic_arn
+}
