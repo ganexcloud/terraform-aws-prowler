@@ -16,6 +16,7 @@ resource "aws_cloudwatch_event_rule" "notification" {
   name          = "security-hub-prowler-notifications"
   description   = "Send Security Hub Notifications."
   event_pattern = var.cloudwatch_event_pattern
+  tags          = var.tags
 }
 
 resource "aws_cloudwatch_event_target" "notification" {
