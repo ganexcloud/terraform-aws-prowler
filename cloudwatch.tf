@@ -54,6 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "codebuild_failure_alarm" {
   statistic           = "Sum"
   threshold           = 1
   treat_missing_data  = "ignore"
+  tags                = var.tags
 
   dimensions = {
     ProjectName = aws_codebuild_project.this.name
