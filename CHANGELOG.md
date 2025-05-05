@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.14](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.13...v1.0.14) (2025-05-05)
+
+
+### Bug Fixes
+
+* add cloudwatch_event_target tag ([1028c2d](https://github.com/ganexcloud/terraform-aws-prowler/commit/1028c2d7995eed9dac86d73adb52a740caa0455b))
+
 ### [1.0.13](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.12...v1.0.13) (2025-05-05)
 
 
