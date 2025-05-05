@@ -1,17 +1,17 @@
 variable "prowler_version" {
-  description = "(Required) Prowler version"
+  description = "(Required) Prowler version."
   type        = string
   default     = "3.15.0"
 }
 
 variable "prowler_schedule" {
-  description = "(Required) Prowler based on cron schedule"
+  description = "(Required) Prowler based on cron schedule."
   default     = "cron(0 12 ? * * *)"
   type        = string
 }
 
 variable "prowler_cli_options" {
-  description = "(Required) Run Prowler With The Following Command"
+  description = "(Required) Run Prowler With The Following Command."
   type        = string
   default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_3.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"
 }
