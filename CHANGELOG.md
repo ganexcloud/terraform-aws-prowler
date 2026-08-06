@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.15](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.14...v1.0.15) (2026-08-06)
+
+### Bug Fixes
+
+* **ci:** pin terraform-docs image ([76d1c59](https://github.com/ganexcloud/terraform-aws-prowler/commit/76d1c5969728b9ad1c805a66bcaef48c09156f94))
+* **docs:** align provider version ([caa7150](https://github.com/ganexcloud/terraform-aws-prowler/commit/caa7150a91eca0dffb0e4f4cdf1efcc1aff0dad2))
+
 ### [1.0.14](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.13...v1.0.14) (2025-05-05)
 
 
