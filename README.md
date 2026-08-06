@@ -17,7 +17,7 @@ Terraform module that creates a collection of resources at AWS to run Prowler re
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.58.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4 |
 
 ## Modules
 
