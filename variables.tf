@@ -62,7 +62,7 @@ phases:
       python: 3.12
     commands:
       - echo "Installing Prowler and dependencies..."
-      - pip3 install detect-secrets==1.4.0 prowler==$PROWLER_VERSION --quiet
+      - pip3 install prowler==$PROWLER_VERSION --quiet
       - yum install -y jq --quiet
   build:
     commands:
