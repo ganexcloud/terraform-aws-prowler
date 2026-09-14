@@ -48,7 +48,7 @@ variable "codebuild_compute_type" {
 
 variable "codebuild_image" {
   description = "(Required) Docker image to use for this build project."
-  default     = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+  default     = "aws/codebuild/amazonlinux-x86_64-standard:6.0"
   type        = string
 }
 
