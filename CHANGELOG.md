@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2](https://github.com/ganexcloud/terraform-aws-prowler/compare/v2.0.1...v2.0.2) (2026-09-14)
+
+### Bug Fixes
+
+* **prowler:** remove legacy detect-secrets dependency ([3c204b4](https://github.com/ganexcloud/terraform-aws-prowler/commit/3c204b47512f4e3da8757f9dbbb8d8b41bcbc430))
+
 ## [2.0.1](https://github.com/ganexcloud/terraform-aws-prowler/compare/v2.0.0...v2.0.1) (2026-09-14)
 
 ### Bug Fixes
