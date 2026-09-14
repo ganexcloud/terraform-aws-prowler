@@ -39,8 +39,8 @@ resource "aws_s3_bucket_ownership_controls" "this" {
 resource "aws_s3_object" "allowlist" {
   bucket = aws_s3_bucket.this.id
   key    = "files/allowlist.yaml"
-  source = local.prowler_allowlist_filepath
-  etag   = filemd5(local.prowler_allowlist_filepath)
+  source = local.prowler_mutelist_filepath
+  etag   = filemd5(local.prowler_mutelist_filepath)
 }
 
 resource "aws_s3_object" "config" {
