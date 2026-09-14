@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "**/*.tf"
+      - "files/**"
       - ".releaserc.json"
       - ".github/workflows/release.yml"
 
