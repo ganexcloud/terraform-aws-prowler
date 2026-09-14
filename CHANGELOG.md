@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.15...v2.0.0) (2026-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* **prowler:** migrate module to prowler v5
+
+### Features
+
+* **prowler:** migrate module to prowler v5 ([8c9669d](https://github.com/ganexcloud/terraform-aws-prowler/commit/8c9669d36cbc0e51ffe737fa6a2879eb70ce8cf7))
+
+### Bug Fixes
+
+* adjusts ([5c48538](https://github.com/ganexcloud/terraform-aws-prowler/commit/5c485387313681d64f0a502e84cc804fc0887d8d))
+
 ## [1.0.15](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.14...v1.0.15) (2026-08-06)
 
 ### Bug Fixes
