@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1](https://github.com/ganexcloud/terraform-aws-prowler/compare/v2.0.0...v2.0.1) (2026-09-14)
+
+### Bug Fixes
+
+* **ci:** release configuration asset changes ([a4a6bfe](https://github.com/ganexcloud/terraform-aws-prowler/commit/a4a6bfe4d72a0c235b605154f2ac7a27eda9b12d))
+* **prowler:** align config with version 5.42 ([8a0a0d3](https://github.com/ganexcloud/terraform-aws-prowler/commit/8a0a0d3801414da617a5257f7ed472e29d4e0486))
+
 ## [2.0.0](https://github.com/ganexcloud/terraform-aws-prowler/compare/v1.0.15...v2.0.0) (2026-09-14)
 
 ### ⚠ BREAKING CHANGES
