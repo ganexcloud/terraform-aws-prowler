@@ -1,7 +1,7 @@
 variable "prowler_version" {
-  description = "(Required) Prowler version."
+  description = "Prowler CLI version."
   type        = string
-  default     = "3.15.0"
+  default     = "5.42.0"
 }
 
 variable "prowler_schedule" {
@@ -11,13 +11,13 @@ variable "prowler_schedule" {
 }
 
 variable "prowler_cli_options" {
-  description = "(Required) Run Prowler With The Following Command."
+  description = "Additional options passed to the Prowler AWS CLI."
   type        = string
-  default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_3.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-modes html json --send-sh-only-fails --no-banner --ignore-exit-code-3"
+  default     = "-S --compliance aws_foundational_security_best_practices_aws aws_well_architected_framework_security_pillar_aws cis_3.0_aws aws_audit_manager_control_tower_guardrails_aws aws_well_architected_framework_reliability_pillar_aws soc2_aws mitre_attack_aws --output-formats html json-ocsf --send-sh-only-fails --no-banner --ignore-exit-code-3"
 }
 
-variable "prowler_allowlist_file" {
-  description = "(Required) Prowler allowlist file `https://docs.prowler.cloud/en/latest/tutorials/allowlist/`"
+variable "prowler_mutelist_file" {
+  description = "Prowler mutelist file. See https://docs.prowler.com/user-guide/cli/tutorials/mutelist/."
   default     = null
   type        = string
 }
@@ -48,7 +48,7 @@ variable "codebuild_compute_type" {
 
 variable "codebuild_image" {
   description = "(Required) Docker image to use for this build project."
-  default     = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+  default     = "aws/codebuild/amazonlinux-x86_64-standard:6.0"
   type        = string
 }
 
@@ -66,10 +66,10 @@ phases:
       - yum install -y jq --quiet
   build:
     commands:
-      - echo "Running Prowler as prowler $PROWLER_OPTIONS"
+      - echo "Running Prowler as prowler aws $PROWLER_OPTIONS"
       - aws s3 cp s3://$S3_BUCKET/files/allowlist.yaml .
       - aws s3 cp s3://$S3_BUCKET/files/config.yaml .
-      - prowler --allowlist-file allowlist.yaml --config-file config.yaml $PROWLER_OPTIONS
+      - prowler aws --mutelist-file allowlist.yaml --config-file config.yaml $PROWLER_OPTIONS
   post_build:
     commands:
       - echo "Scan Complete"
